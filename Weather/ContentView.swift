@@ -16,7 +16,14 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
+    init(){
+        NetWorkManager.shared.currentWeather { result in
+            print(result)
+        }
+    }
+    
     var body: some View {
+       
         NavigationView {
             List {
                 ForEach(items) { item in

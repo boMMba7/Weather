@@ -12,3 +12,6 @@ enum WeatherImageName: String {
     case RAIN = "cloud.rain.fill"
     case CLOUDSUN = "cloud.sun.fill"
 }
+
+
+
