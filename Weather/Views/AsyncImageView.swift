@@ -12,7 +12,11 @@ struct AsyncImageView: View {
     var imageurl: String
     var width, height: CGFloat
     
+
     var body: some View {
+        // download image from server using url,
+        //just render the image after donload the image
+        // iff bad link or no internet connection show a error message
         AsyncImage(url: URL(string: imageurl)){ phase in
             if let image = phase.image {
                 image
@@ -29,8 +33,8 @@ struct AsyncImageView: View {
     }
 }
 
-//struct AsyncImageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AsyncImageView()
-//    }
-//}
+struct AsyncImageView_Previews: PreviewProvider {
+    static var previews: some View {
+        AsyncImageView(imageurl: "", width: 100, height: 100)
+    }
+}

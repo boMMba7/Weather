@@ -27,6 +27,7 @@ struct CurrentWeatherView: View {
     }
 }
 
+//  MVVM
 extension CurrentWeatherView {
     @MainActor class ViewModel: ObservableObject {
         
@@ -36,6 +37,9 @@ extension CurrentWeatherView {
            updateCurrentWeather()
         }
         
+        //  fetch information from api, when done,
+        //  put the information in brodcast variable,
+        //  to update the view that are lisening
         private func updateCurrentWeather() {
             NetWorkManager.shared.currentWeather(cityName: "Leeds", completion: { [weak self] (result) in
                 DispatchQueue.main.async {
@@ -51,9 +55,6 @@ extension CurrentWeatherView {
                 }
             })
         }
-        
-       
-        
     }
 }
 

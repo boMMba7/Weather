@@ -13,6 +13,10 @@ struct NetWorkManager{
     static let shared = NetWorkManager()
     private init(){}
     
+    /// request the current weather
+    /// - Parameters:
+    ///   - cityName: city where the wheather information belong
+    ///   - completion: way to return the result of request, error or data
     func currentWeather(cityName: String = "Leeds",
                         completion: @escaping(Result<CurrentWeather, Error>) -> Void) {
         request(urlString: "https://weatherbit-v1-mashape.p.rapidapi.com/current?city=\(cityName)&lang=en",
@@ -20,6 +24,10 @@ struct NetWorkManager{
         
         }
     
+    /// make a request of the forecast weather
+    /// - Parameters:
+    ///   - cityName: city of the city to forecast the weather
+    ///   - completion: way to return the result of request, error or data
     func forecat(cityName: String = "Leeds",
                     completion: @escaping(Result<ForecastWeather, Error>) -> Void) {
         request(urlString: "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily?lat=53.8008&lon=1.5491&lang=en",
@@ -29,6 +37,10 @@ struct NetWorkManager{
    
   
     
+    /// creat a request , do the request and decode the data from the request
+    /// - Parameters:
+    ///   - urlString: string representing the url request
+    ///   - completion: way to return the result of the request , data or error
     private func request<T: Decodable>( urlString: String ,completion: @escaping(Result<T, Error>) -> Void) {
         print(urlString)
         
@@ -47,7 +59,6 @@ struct NetWorkManager{
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
             } else {
-                let httpResponse = response as? HTTPURLResponse
 //                print("\(String(data: data!, encoding: .utf8)!)\n\n")
                 let decoder = JSONDecoder()
                 do {

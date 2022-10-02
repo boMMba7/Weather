@@ -34,6 +34,9 @@ struct WetherStruct: Hashable {
     }
     
     
+    /// cut the decimal zeros
+    /// - Parameter temp: the original double with zeros
+    /// - Returns: String that represent the number without the zeros
    private func cutZeros( temp: Double?) -> String {
         if let t = temp {
             let roundDouble = String(format: "%g", t)
@@ -43,6 +46,9 @@ struct WetherStruct: Hashable {
         }
     }
     
+    /// convert string representing the date to a corespondent day of the week
+    /// - Parameter yyyymmdd: date in string format
+    /// - Returns: day of the week of that date
     private func dayOfTheWeek (yyyymmdd: String) -> String? {
         let weekDays = ["Sun",
                         "Mon",

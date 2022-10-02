@@ -9,8 +9,6 @@ import SwiftUI
 
 struct DayView: View {
     
-    @StateObject private var viewModel = ViewModel()
-    
     var dayName, imageName: String
     var temperature: String
     
@@ -26,15 +24,12 @@ struct DayView: View {
     }
 }
 
-extension DayView {
-    @MainActor class ViewModel: ObservableObject {
-//        @Published private(set) var forecast = Forecast()
-        
-    }
-}
+
 
 struct DayView_Previews: PreviewProvider {
     static var previews: some View {
-        DayView(dayName: "name", imageName: "sun.max.fill", temperature: "0")
+        DayView(dayName: "name",
+                imageName: "https://www.weatherbit.io/static/img/icons/t03d.png",
+                temperature: "0")
     }
 }

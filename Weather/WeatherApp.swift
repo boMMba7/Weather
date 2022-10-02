@@ -14,7 +14,6 @@ struct WeatherApp: App {
         WindowGroup {
             MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                
         }
     }
 }
