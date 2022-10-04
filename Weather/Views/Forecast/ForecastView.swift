@@ -31,7 +31,7 @@ extension ForecastView {
         @Published private(set) var forecasts = [WetherStruct]()
         
         init(){
-           updateForecast()
+//           updateForecast()
         }
         
         //  fetch information from api, when done,
