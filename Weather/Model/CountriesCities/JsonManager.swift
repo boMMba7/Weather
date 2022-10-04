@@ -16,19 +16,25 @@ final class JsonManager {
     
     
     func loadCities() {
-        if CoreDataManager.shared.CoreDataIsEmpty() {
-            if let jsonData = getDataFromJasonFile() {
+        // do this task in backgroun thred , to dont lag or frise the app
+        DispatchQueue.global(qos: .background).async {
+            if let jsonData = self.getDataFromJasonFile() {
                 do {
-                    countriesCities = try JSONDecoder().decode([CountriesCity].self, from: jsonData)
-                    print(countriesCities.first!.latitude!)
-                    print(countriesCities.first!.emojiU!)
-                    
-                    for c in countriesCities {
-                        CoreDataManager.shared.createCountry(name: c.name,
-                                                             longitude: c.longitude ?? "",
-                                                             latitude: c.latitude ?? "",
-                                                             emoji: c.emojiU ?? "",
-                                                             cities: c.cities ?? [])
+                    let countriesCities = try JSONDecoder().decode([CountriesCity].self, from: jsonData)
+                    // number of countries alredy in core data,
+                    // becou the preview insersion could have been,
+                    // impturrupted with close of the app
+                    let nCountries = CoreDataManager.shared.fetchCountries().count
+                    let countriesCitiesDroped = countriesCities.dropFirst(nCountries)
+                    // insert in core data
+                    for c in countriesCitiesDroped {
+                        DispatchQueue.main.async {
+                            CoreDataManager.shared.createCountry(name: c.name,
+                                                                 longitude: c.longitude ?? "",
+                                                                 latitude: c.latitude ?? "",
+                                                                 emoji: c.emoji ?? "",
+                                                                 cities: c.cities ?? [])
+                        }
                     }
                 } catch {
                     print("Error trying to decode cities data from jason:\n \(error)")

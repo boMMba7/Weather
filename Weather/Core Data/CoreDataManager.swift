@@ -32,6 +32,9 @@ class CoreDataManager{
             //let know if have completed load sucefull
             completion?()
         }
+        
+        let countries = fetchCountries()
+        print(" number of countries in core data: \(countries.count)")
     }
     
     
@@ -94,9 +97,24 @@ class CoreDataManager{
     }
     
     func CoreDataIsEmpty() -> Bool {
-        print(fetchCity().count)
-        print(fetchCountries().count)
-        return fetchCountries().isEmpty
+        let countries = fetchCountries()
+        print(" number of countries in core data: \(countries.count)")
+        for country in countries {
+            print("\(country.emoji ?? "") \(country.name ?? "") with \(country.cities?.count ?? 0) cities")
+        }
+       
+        return countries.isEmpty
+    }
+    
+    func CleanAll() {
+        let countries = fetchCountries()
+        print(" number of countries in core data: \(countries.count)")
+        for country in countries {
+            print("\(country.name ?? "") ----- DELETED ")
+            self.myContext.delete(country)
+        }
+        save()
+        print(" number of countries in core data: \(countries.count)")
     }
     
   
@@ -104,8 +122,6 @@ class CoreDataManager{
 
 // MARK:- Helper functions
 extension CoreDataManager{
-    
-    
     
     private func createCity(name: String,
                             longitude: String,
@@ -115,7 +131,7 @@ extension CoreDataManager{
         city.name = name
         city.longitude = longitude
         city.latitude = latitude
-//        save()
+        save()
         return city
     }
     
@@ -137,7 +153,7 @@ extension CoreDataManager{
                                   latitude: c.latitude ?? "" )
             coutry.addToCities(city)
         }
-        
+        print("Creating country: \(coutry.name ?? "NO NAME") with \(coutry.cities?.count ?? 0) cities")
         save()
         return coutry
     }

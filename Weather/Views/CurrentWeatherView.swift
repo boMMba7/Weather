@@ -34,8 +34,7 @@ extension CurrentWeatherView {
         @Published private(set) var weather = WetherStruct()
         
         init() {
-            JsonManager.shared.loadCities()
-//           updateCurrentWeather()
+           updateCurrentWeather()
         }
         
         //  fetch information from api, when done,
