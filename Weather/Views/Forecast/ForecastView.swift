@@ -29,6 +29,9 @@ extension ForecastView {
     @MainActor class ViewModel: ObservableObject {
         
         @Published private(set) var forecasts = [WetherStruct]()
+        var city: City? {
+            CoreDataManager.shared.getUserPrefence()?.getCity()
+        }
         
         init(){
            updateForecast()
@@ -38,7 +41,10 @@ extension ForecastView {
         //  put the information in brodcast variable,
         //  to update the view that are lisening
         private func updateForecast() {
-            NetWorkManager.shared.forecat(cityName: "Accra") { [weak self] (result) in
+            let lat = city?.latitude ?? "53.8008"
+            let long = city?.longitude ?? "1.5491"
+            print("\(city?.coutry?.emoji ?? "XX") \(city?.coutry?.name ?? "XX") \(city?.name ?? "XX")     \(lat)      \(long)")
+            NetWorkManager.shared.forecat(lat: lat, long: long) { [weak self] (result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let forecast):

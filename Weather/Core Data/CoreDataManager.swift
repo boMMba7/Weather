@@ -49,6 +49,21 @@ class CoreDataManager{
         }
     }
     
+    func getUserPrefence() -> UserPreference? {
+        let request: NSFetchRequest<UserPreference> = UserPreference.fetchRequest()
+        do {
+            let response = try self.myContext.fetch(request)
+            if response.isEmpty{
+                return nil
+            } else {
+                return response.first
+            }
+        } catch {
+            print("Error trying to get user:\n \(error)")
+        }
+        return nil
+    }
+    
     func fetchCity(filter: String? = nil) -> [City]{
         let request: NSFetchRequest<City> = City.fetchRequest()
         
@@ -123,6 +138,19 @@ class CoreDataManager{
 // MARK:- Helper functions
 extension CoreDataManager{
     
+    func createUser(name: String) -> UserPreference {
+        let user = UserPreference(context: self.myContext)
+        user.name = name
+        let cities = fetchCity(filter: "Leeds") // Leeds by default
+        // TODO :- fetch any one city, in case of leeds is no added yet
+        if let city = cities.first {
+            user.addToCity(city)
+        }
+        save()
+        return user
+            
+    }
+    
     private func createCity(name: String,
                             longitude: String,
                             latitude: String ) -> City {
@@ -139,7 +167,7 @@ extension CoreDataManager{
                        longitude: String,
                        latitude: String,
                         emoji: String,
-                       cities: [JsonCity]) -> Country {
+                       cities: [JsonCity]) {
         
         let coutry = Country(context: self.myContext)
         coutry.name = name
@@ -155,7 +183,6 @@ extension CoreDataManager{
         }
         print("Creating country: \(coutry.name ?? "NO NAME") with \(coutry.cities?.count ?? 0) cities")
         save()
-        return coutry
     }
     
 }

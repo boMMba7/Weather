@@ -17,9 +17,10 @@ struct NetWorkManager{
     /// - Parameters:
     ///   - cityName: city where the wheather information belong
     ///   - completion: way to return the result of request, error or data
-    func currentWeather(cityName: String = "Leeds",
+    func currentWeather(lat: String,
+                        long: String,
                         completion: @escaping(Result<CurrentWeather, Error>) -> Void) {
-        request(urlString: "https://weatherbit-v1-mashape.p.rapidapi.com/current?city=\(cityName)&lang=en",
+        request(urlString: "https://weatherbit-v1-mashape.p.rapidapi.com/current?lat=\(lat)&lon=\(long)&lang=en",
                 completion: completion)
         
         }
@@ -28,9 +29,10 @@ struct NetWorkManager{
     /// - Parameters:
     ///   - cityName: city of the city to forecast the weather
     ///   - completion: way to return the result of request, error or data
-    func forecat(cityName: String = "Leeds",
-                    completion: @escaping(Result<ForecastWeather, Error>) -> Void) {
-        request(urlString: "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily?lat=53.8008&lon=1.5491&lang=en",
+    func forecat(lat: String,
+                 long: String,
+                 completion: @escaping(Result<ForecastWeather, Error>) -> Void) {
+        request(urlString: "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily?lat=\(lat)&lon=\(long)&lang=en",
                 completion: completion)
         
     }
@@ -54,7 +56,6 @@ struct NetWorkManager{
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
-        print(request)
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {

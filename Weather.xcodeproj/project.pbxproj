@@ -15,6 +15,8 @@
 		CB24132328EBB82F007CCD13 /* Weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB24132128EBB82F007CCD13 /* Weather.xcdatamodeld */; };
 		CB24132828EBB97D007CCD13 /* City+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24132428EBB97D007CCD13 /* City+CoreDataClass.swift */; };
 		CB24132A28EBB97D007CCD13 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB24132628EBB97D007CCD13 /* Country+CoreDataClass.swift */; };
+		CB2413AD28EC8565007CCD13 /* UserPreference+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2413AB28EC8565007CCD13 /* UserPreference+CoreDataClass.swift */; };
+		CB2413B228ECADF5007CCD13 /* ListCitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2413B128ECADF5007CCD13 /* ListCitiesView.swift */; };
 		CB37576D28EA20B10066284E /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB37576C28EA20B10066284E /* AsyncImageView.swift */; };
 		CB37576F28EA24F50066284E /* WeatherStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB37576E28EA24F50066284E /* WeatherStruct.swift */; };
 		CBC3052128E8728700956E9A /* BackGroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3052028E8728700956E9A /* BackGroundView.swift */; };
@@ -39,6 +41,8 @@
 		CB24132228EBB82F007CCD13 /* Weather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Weather.xcdatamodel; sourceTree = "<group>"; };
 		CB24132428EBB97D007CCD13 /* City+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		CB24132628EBB97D007CCD13 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		CB2413AB28EC8565007CCD13 /* UserPreference+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreference+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		CB2413B128ECADF5007CCD13 /* ListCitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCitiesView.swift; sourceTree = "<group>"; };
 		CB37576C28EA20B10066284E /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		CB37576E28EA24F50066284E /* WeatherStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStruct.swift; sourceTree = "<group>"; };
 		CBC3052028E8728700956E9A /* BackGroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundView.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 				CBC3052028E8728700956E9A /* BackGroundView.swift */,
 				CBC3053628E911FB00956E9A /* CurrentWeatherView.swift */,
 				CB0D8EA128E9749100299BF4 /* Forecast */,
+				CB2413B128ECADF5007CCD13 /* ListCitiesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 		CBC3052628E87FEC00956E9A /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				CB2413AB28EC8565007CCD13 /* UserPreference+CoreDataClass.swift */,
 				CB24132428EBB97D007CCD13 /* City+CoreDataClass.swift */,
 				CB24132628EBB97D007CCD13 /* Country+CoreDataClass.swift */,
 				CB24131F28EB9E40007CCD13 /* CoreDataManager.swift */,
@@ -242,11 +248,13 @@
 				CBE7DF5A28E85D89000969AE /* DayView.swift in Sources */,
 				CB0D8EA028E9742A00299BF4 /* ForecastView.swift in Sources */,
 				CBC3053328E89B1C00956E9A /* CurrentWeather.swift in Sources */,
+				CB2413AD28EC8565007CCD13 /* UserPreference+CoreDataClass.swift in Sources */,
 				CB24132028EB9E40007CCD13 /* CoreDataManager.swift in Sources */,
 				CBC3052128E8728700956E9A /* BackGroundView.swift in Sources */,
 				CBC3052328E87BF100956E9A /* ForecastWeather.swift in Sources */,
 				CBE7DF5828E853D2000969AE /* MainView.swift in Sources */,
 				CB24132A28EBB97D007CCD13 /* Country+CoreDataClass.swift in Sources */,
+				CB2413B228ECADF5007CCD13 /* ListCitiesView.swift in Sources */,
 				CB37576D28EA20B10066284E /* AsyncImageView.swift in Sources */,
 				CB24131628EB8551007CCD13 /* JsonManager.swift in Sources */,
 				CBC3052D28E887BB00956E9A /* AppError.swift in Sources */,

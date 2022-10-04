@@ -5,6 +5,7 @@
         <attribute name="longitude" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="coutry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Country" inverseName="cities" inverseEntity="Country"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserPreference" inverseName="city" inverseEntity="UserPreference"/>
     </entity>
     <entity name="Country" representedClassName="Country" syncable="YES" codeGenerationType="category">
         <attribute name="emoji" optional="YES" attributeType="String"/>
@@ -12,5 +13,9 @@
         <attribute name="longitude" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="cities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="City" inverseName="coutry" inverseEntity="City"/>
+    </entity>
+    <entity name="UserPreference" representedClassName="UserPreference" syncable="YES" codeGenerationType="category">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="city" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="City" inverseName="user" inverseEntity="City"/>
     </entity>
 </model>
