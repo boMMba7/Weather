@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CurrentWeatherView: View {
     @StateObject private var viewModel = ViewModel()
-
     var body: some View {
         
         Text(viewModel.weather.name)
@@ -24,6 +23,10 @@ struct CurrentWeatherView: View {
                 .font(.system(size: 70, weight: .medium))
                 .foregroundColor(.white)
         }
+        .onReceive(CoreDataManager.shared.getUserPrefence()!.objectWillChange) { _ in
+            viewModel.updateCityDisplayed()
+        }
+        
     }
 }
 
@@ -33,12 +36,15 @@ extension CurrentWeatherView {
         
         @Published private(set) var weather = WetherStruct()
         
-        var city: City? {
-            CoreDataManager.shared.getUserPrefence()?.getCity()
-        }
+        @Published var city = CoreDataManager.shared.getUserPrefence()?.getCities().first
         
         init() {
            updateCurrentWeather()
+        }
+        
+        func updateCityDisplayed() {
+            city = CoreDataManager.shared.getUserPrefence()?.getCities().first
+            updateCurrentWeather()
         }
         
         //  fetch information from api, when done,

@@ -151,6 +151,16 @@ extension CoreDataManager{
             
     }
     
+    func cleanAndAddCityToUser(city: City) {
+        if let cities = getUserPrefence()?.getCities(){
+            for c in cities{
+                getUserPrefence()?.removeFromCity(c)
+            }
+        }
+        getUserPrefence()?.addToCity(city)
+        save()
+    }
+    
     private func createCity(name: String,
                             longitude: String,
                             latitude: String ) -> City {

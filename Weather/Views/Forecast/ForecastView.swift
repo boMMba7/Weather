@@ -21,6 +21,9 @@ struct ForecastView: View {
             }
           
         }
+        .onReceive(CoreDataManager.shared.getUserPrefence()!.objectWillChange) { _ in
+            viewModel.updateCityDisplayed()
+        }
     }
 }
 
@@ -29,12 +32,16 @@ extension ForecastView {
     @MainActor class ViewModel: ObservableObject {
         
         @Published private(set) var forecasts = [WetherStruct]()
-        var city: City? {
-            CoreDataManager.shared.getUserPrefence()?.getCity()
-        }
+        @Published var city = CoreDataManager.shared.getUserPrefence()?.getCities().first
+        
         
         init(){
            updateForecast()
+        }
+        
+        func updateCityDisplayed() {
+            city = CoreDataManager.shared.getUserPrefence()?.getCities().first
+            updateForecast()
         }
         
         //  fetch information from api, when done,
@@ -60,12 +67,13 @@ extension ForecastView {
         /// put the information fethed in a collection of  broadcast variable
         /// - Parameter forecast: collection of data recived from api
         private func populate(forecast: [DatumForecast]){
+            self.forecasts.removeAll()
             if !forecast.isEmpty {
                 for i in  1...5{
                     let fCast = WetherStruct(name: forecast[i].validDate ?? "Day",
                                              imageUrlCode: forecast[i].weather?.icon ?? "",
                                              temperature: forecast[i].temp ?? 0)
-                    forecasts.append(fCast)
+                    self.forecasts.append(fCast)
                 }
             }
         }

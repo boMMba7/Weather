@@ -21,6 +21,7 @@ struct WeatherApp: App {
     
     var body: some Scene {
         WindowGroup {
+//            ListCitiesView()
             MainView()
         }
     }
