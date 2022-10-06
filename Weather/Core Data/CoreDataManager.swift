@@ -166,6 +166,7 @@ extension CoreDataManager{
                             latitude: String ) -> City {
         
         let city = City(context: self.myContext)
+        city.id = UUID()
         city.name = name
         city.longitude = longitude
         city.latitude = latitude
@@ -180,6 +181,7 @@ extension CoreDataManager{
                        cities: [JsonCity]) {
         
         let coutry = Country(context: self.myContext)
+       
         coutry.name = name
         coutry.latitude = latitude
         coutry.longitude = longitude

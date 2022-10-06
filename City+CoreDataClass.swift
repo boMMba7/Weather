@@ -13,5 +13,4 @@ import CoreData
 public class City: NSManagedObject {
 
     
-    
 }

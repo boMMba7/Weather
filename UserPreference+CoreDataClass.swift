@@ -15,9 +15,9 @@ public class UserPreference: NSManagedObject {
     
     func getCities() -> [City] {
         let city = self.city as? Set<City>
-        return (city?.sorted {
+        return city?.sorted {
             $0.name ?? "" < $1.name ?? ""
-        })! //TODO check later the force wrap!!! ZZZZZZZZZZZZZZZ
+        } ?? []
     }
     
     

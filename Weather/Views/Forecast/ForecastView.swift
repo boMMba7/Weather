@@ -34,7 +34,6 @@ extension ForecastView {
         @Published private(set) var forecasts = [WetherStruct]()
         @Published var city = CoreDataManager.shared.getUserPrefence()?.getCities().first
         
-        
         init(){
            updateForecast()
         }
@@ -60,7 +59,6 @@ extension ForecastView {
                         print(err)
                     }
                 }
-                
             }
         }
         

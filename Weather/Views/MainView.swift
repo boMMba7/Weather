@@ -16,22 +16,39 @@ struct MainView: View {
             BackGroundView(tooColor: .blue, bottonColor: Color("lightBlue"))
             VStack{
                 CurrentWeatherView()
-                    .onTapGesture {
-                        viewModel.ShowListCities(show: true)
-                    }
+    
                 
                 Spacer()
                 ForecastView()
                 .padding(.all)
                 Spacer()
+                Button {
+                    viewModel.ShowListCities(show: true)
+                } label: {
+                    
+                    Text("Change City")
+                        .font(.system(size: 24, weight: .medium, design: .default))
+                        .tint(.white)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: 330, height: 60,alignment: .center)
+                        .background(.linearGradient(Gradient(colors: [.clear, .green]),
+                                                    startPoint: .bottom,
+                                                    endPoint: .top))
+                        .cornerRadius(12)
+                        .shadow(color: Color(.green), radius: 9, x: 5, y: 10)
+                }
+                Spacer()
             }
             .popover(isPresented: $viewModel.isVisible ){
-                ListCitiesView(showing: $viewModel.isVisible)
+                SearchByCountry(showing: $viewModel.isVisible)
             }
             .onReceive(CoreDataManager.shared.getUserPrefence()!.objectWillChange) { _ in
                 viewModel.updateCityDisplayed()
                 print("User mudou a cidade \(viewModel.city?.name ?? "")")
             }
+            
+            
+
             
         }
         .edgesIgnoringSafeArea(.all)
