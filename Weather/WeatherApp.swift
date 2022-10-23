@@ -9,12 +9,20 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
-    let persistenceController = PersistenceController.shared
-
+    
+    init(){
+        
+        CoreDataManager.shared.load{
+            print("Core Data Load Complet")
+        }
+//        CoreDataManager.shared.CleanAll()
+        JsonManager.shared.loadCities()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            ListCitiesView()
+            MainView()
         }
     }
 }

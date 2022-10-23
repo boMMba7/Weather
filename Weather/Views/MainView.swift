@@ -9,59 +9,79 @@ import SwiftUI
 
 struct MainView: View {
     
-    var cityName = "Leeds"
-    var todayTemperature = 20
-    var todayImage: WeatherImageName = .CLOUDSUN
-    
-    @State var forecast1: Forecast = Forecast()
-    @State var forecast2: Forecast = Forecast(dayName: "Mon", temperature: 20, image: .SUN)
-    @State var forecast3: Forecast = Forecast(dayName: "Tue", temperature: 15, image: .RAIN)
-    @State var forecast4: Forecast = Forecast(dayName: "Wen", temperature: 19, image: .SUN)
-    @State var forecast5: Forecast = Forecast(dayName: "Thu", temperature: 18, image: .CLOUDSUN)
-    
-    
+    @StateObject private var viewModel = ViewModel()
     var body: some View {
         
         ZStack{
-           BackGroundView(tooColor: .blue, bottonColor: Color("lightBlue"))
+            BackGroundView(tooColor: .blue, bottonColor: Color("lightBlue"))
             VStack{
-                Text(cityName)
-                    .font(.system(size: 32, weight: .medium, design: .default))
-                    .foregroundColor(.white)
-                    .padding(.all, 60.0)
+                CurrentWeatherView()
+    
                 
-                VStack(spacing: 8){
-                    Image(systemName: todayImage.rawValue)
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 180, height: 180)
+                Spacer()
+                ForecastView()
+                .padding(.all)
+                Spacer()
+                Button {
+                    viewModel.ShowListCities(show: true)
+                } label: {
                     
-                    Text("\(todayTemperature)º")
-                        .font(.system(size: 70, weight: .medium))
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 20){
-                        DayView(forecast: forecast1)
-                        DayView(forecast: forecast2)
-                        DayView(forecast: forecast3)
-                        DayView(forecast: forecast4)
-                        DayView(forecast: forecast5)
-                       
-                    }
-                    .padding(.all)
-                    Spacer()
+                    Text("Change City")
+                        .font(.system(size: 24, weight: .medium, design: .default))
+                        .tint(.white)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: 330, height: 60,alignment: .center)
+                        .background(.linearGradient(Gradient(colors: [.clear, .green]),
+                                                    startPoint: .bottom,
+                                                    endPoint: .top))
+                        .cornerRadius(12)
+                        .shadow(color: Color(.green), radius: 9, x: 5, y: 10)
                 }
-               
+                Spacer()
             }
-            .edgesIgnoringSafeArea(.all)
+            .popover(isPresented: $viewModel.isVisible ){
+                SearchByCountry(showing: $viewModel.isVisible)
+            }
+            .onReceive(CoreDataManager.shared.getUserPrefence()!.objectWillChange) { _ in
+                viewModel.updateCityDisplayed()
+                print("User mudou a cidade \(viewModel.city?.name ?? "")")
+            }
+            
+            
+
             
         }
+        .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.all)
         
     }
+}
+
+extension MainView {
+    
+    @MainActor private final class ViewModel: ObservableObject{
+        
+        @Published private(set) var user: UserPreference
+        @Published private(set) var city: City?
+        @Published var isVisible = false
+
+        init() {
+            // if dont have user creat one
+            user = CoreDataManager.shared.getUserPrefence() ??
+                        CoreDataManager.shared.createUser(name: UIDevice.current.name)
+            city = user.getCities().first
+        }
+        
+        func ShowListCities(show: Bool) {
+            isVisible = show
+        }
+        
+        func updateCityDisplayed() {
+            city = user.getCities().first
+        }
+        
+    }
+    
 }
 
 struct MainView_Previews: PreviewProvider {
