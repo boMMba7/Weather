@@ -53,7 +53,7 @@ extension CurrentWeatherView {
         private func updateCurrentWeather() {
             let lat = city?.latitude ?? "53.8008"
             let long = city?.longitude ?? "1.5491"
-            print("\(city?.coutry?.emoji ?? "XX") \(city?.coutry?.name ?? "XX") \(city?.name ?? "XX")     \(lat)      \(long)")
+
             NetWorkManager.shared.currentWeather(lat: lat,
                                                  long: long,
                                                  completion: { [weak self] (result) in

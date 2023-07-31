@@ -49,7 +49,7 @@ extension ForecastView {
         private func updateForecast() {
             let lat = city?.latitude ?? "53.8008"
             let long = city?.longitude ?? "1.5491"
-            print("\(city?.coutry?.emoji ?? "XX") \(city?.coutry?.name ?? "XX") \(city?.name ?? "XX")     \(lat)      \(long)")
+            
             NetWorkManager.shared.forecat(lat: lat, long: long) { [weak self] (result) in
                 DispatchQueue.main.async {
                     switch result {

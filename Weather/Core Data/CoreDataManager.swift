@@ -33,8 +33,7 @@ class CoreDataManager{
             completion?()
         }
         
-        let countries = fetchCountries()
-        print(" number of countries in core data: \(countries.count)")
+        _ = fetchCountries()
     }
     
     
@@ -138,20 +137,28 @@ class CoreDataManager{
 // MARK:- Helper functions
 extension CoreDataManager{
     
+
+    
     func createUser(name: String) -> UserPreference {
         let user = UserPreference(context: self.myContext)
         user.name = name
-        let cities = fetchCity(filter: "Leeds") // Leeds by default
-        // TODO :- fetch any one city, in case of leeds is no added yet
-        if let city = cities.first {
-            user.addToCity(city)
-        }
+        
+        //Leeds as default
+        let city = createCity(name: "Leeds",
+                              longitude: "-1.54785000",
+                              latitude: "53.79648000" )
+        
+        user.addToCity(city)
         save()
         return user
             
     }
     
-    func cleanAndAddCityToUser(city: City) {
+    func cleanAndAddCityToUser(cityJsn: JsonCity) {
+        let city = createCity(name: cityJsn.name ?? "",
+                              longitude: cityJsn.longitude ?? "" ,
+                              latitude: cityJsn.latitude ?? "" )
+        
         if let cities = getUserPrefence()?.getCities(){
             for c in cities{
                 getUserPrefence()?.removeFromCity(c)
@@ -193,7 +200,7 @@ extension CoreDataManager{
                                   latitude: c.latitude ?? "" )
             coutry.addToCities(city)
         }
-        print("Creating country: \(coutry.name ?? "NO NAME") with \(coutry.cities?.count ?? 0) cities")
+        
         save()
     }
     

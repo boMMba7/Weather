@@ -40,20 +40,14 @@ struct MainView: View {
                 Spacer()
             }
             .popover(isPresented: $viewModel.isVisible ){
-                SearchByCountry(showing: $viewModel.isVisible)
+                SearchView(showing: $viewModel.isVisible)
             }
             .onReceive(CoreDataManager.shared.getUserPrefence()!.objectWillChange) { _ in
                 viewModel.updateCityDisplayed()
-                print("User mudou a cidade \(viewModel.city?.name ?? "")")
             }
-            
-            
-
-            
         }
         .edgesIgnoringSafeArea(.all)
-        .ignoresSafeArea(.all)
-        
+        .ignoresSafeArea(.all)        
     }
 }
 

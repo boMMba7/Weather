@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - CountriesCity
-struct CountriesCity: Codable {
+struct CountriesCity: Codable, Identifiable {
     let id: Int?
     let name, iso3, iso2, numericCode: String?
     let phoneCode, capital, currency, currencyName: String?
@@ -31,9 +31,10 @@ struct CountriesCity: Codable {
 }
 
 // MARK: - City
-struct JsonCity: Codable {
+struct JsonCity: Codable, Identifiable {
     let id: Int?
     let name, latitude, longitude: String?
+    let country: CountriesCity?  // just contain _id name and emoji
 }
 
 enum Region: String, Codable {

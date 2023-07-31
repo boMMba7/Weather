@@ -37,14 +37,13 @@ struct NetWorkManager{
         
     }
    
-  
+ 
     
     /// creat a request , do the request and decode the data from the request
     /// - Parameters:
     ///   - urlString: string representing the url request
     ///   - completion: way to return the result of the request , data or error
     private func request<T: Decodable>( urlString: String ,completion: @escaping(Result<T, Error>) -> Void) {
-        print(urlString)
         
         let headers = [
             "X-RapidAPI-Key": "0a19cd7199mshcdf1fd33a761297p129ed5jsnd8754a745940",

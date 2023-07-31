@@ -15,13 +15,11 @@ struct WeatherApp: App {
         CoreDataManager.shared.load{
             print("Core Data Load Complet")
         }
-//        CoreDataManager.shared.CleanAll()
-        JsonManager.shared.loadCities()
+
     }
     
     var body: some Scene {
         WindowGroup {
-//            ListCitiesView()
             MainView()
         }
     }
